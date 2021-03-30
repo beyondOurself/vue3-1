@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-24 15:55:23
- * @LastEditTime: 2021-03-30 14:40:31
+ * @LastEditTime: 2021-03-30 15:08:24
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \v3\vue3-1\src\App.vue
@@ -32,13 +32,20 @@
     <div v-if="loaded">
       <img :src="result.imgUrl" />
     </div> -->
-    <modal></modal>
+    <!-- <modal></modal> -->
+    <Suspense>
+      <template #default>
+        <AsyncShow />
+      </template>
+      <template #fallback> Lodaing.... </template>
+    </Suspense>
   </div>
 </template>
 <script lang="ts">
 import modal from "./components/Modal.vue";
 import { nowTime, getNowTime } from "./hooks/useGetNowTime";
 import userUrlAxios from "./hooks/useGetBeautyUrl";
+import AsyncShow from "./components/AsyncShow.vue";
 import {
   onBeforeMount,
   onBeforeUnmount,
@@ -63,7 +70,8 @@ interface DataProps {
 export default {
   name: "App",
   components: {
-    modal
+    // modal,
+    AsyncShow
   },
   setup() {
     const data: DataProps = reactive({
