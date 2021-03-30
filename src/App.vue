@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-24 15:55:23
- * @LastEditTime: 2021-03-30 15:08:24
+ * @LastEditTime: 2021-03-30 15:37:15
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \v3\vue3-1\src\App.vue
@@ -35,7 +35,8 @@
     <!-- <modal></modal> -->
     <Suspense>
       <template #default>
-        <AsyncShow />
+        <!-- <AsyncShow /> -->
+        <girs-show></girs-show>
       </template>
       <template #fallback> Lodaing.... </template>
     </Suspense>
@@ -45,7 +46,8 @@
 import modal from "./components/Modal.vue";
 import { nowTime, getNowTime } from "./hooks/useGetNowTime";
 import userUrlAxios from "./hooks/useGetBeautyUrl";
-import AsyncShow from "./components/AsyncShow.vue";
+// import AsyncShow from "./components/AsyncShow.vue";
+import GirsShow from "./components//GitShow.vue";
 import {
   onBeforeMount,
   onBeforeUnmount,
@@ -58,7 +60,8 @@ import {
   reactive,
   ref,
   toRefs,
-  watch
+  watch,
+  onErrorCaptured
 } from "vue";
 
 interface DataProps {
@@ -71,7 +74,8 @@ export default {
   name: "App",
   components: {
     // modal,
-    AsyncShow
+    // AsyncShow
+    GirsShow
   },
   setup() {
     const data: DataProps = reactive({
@@ -121,7 +125,10 @@ export default {
     const { result, loading, loaded, error } = userUrlAxios(
       "https://apiblog.jspang.com/default/getGirl"
     );
-
+    onErrorCaptured(error => {
+      console.log("error==>", error);
+      return true;
+    });
     return {
       ...refData,
       overTextRef,
