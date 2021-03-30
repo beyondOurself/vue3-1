@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-24 15:55:23
- * @LastEditTime: 2021-03-25 16:58:13
+ * @LastEditTime: 2021-03-30 14:40:31
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \v3\vue3-1\src\App.vue
@@ -93,10 +93,11 @@ export default {
     onUnmounted(() => {
       console.log("组件卸载之后执行");
     });
-    // onRenderTracked(event => {
-    //   console.log(event);
-    //   console.log("状态跟踪*******");
-    // });
+
+    onRenderTracked(event => {
+      console.log(event);
+      console.log("状态跟踪*******");
+    });
     onRenderTriggered(event => {
       console.log("状态精确跟踪********");
       console.log(event);
